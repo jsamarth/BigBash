@@ -1,0 +1,25 @@
+{
+  "name": "bigbash",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "workflows",
+    "workers"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev:api": "npm run dev --workspace=packages/api",
+    "dev:worker": "npm run dev --workspace=workers",
+    "migrate": "npm run migrate --workspace=packages/infra",
+    "migrate:latest": "npm run migrate:latest --workspace=packages/infra",
+    "migrate:rollback": "npm run migrate:rollback --workspace=packages/infra",
+    "trigger:workflow": "ts-node --project packages/infra/tsconfig.json -r tsconfig-paths/register scripts/trigger-workflow.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2"
+  }
+}
+
