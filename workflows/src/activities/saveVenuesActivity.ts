@@ -6,7 +6,7 @@ import type { VenueInput } from '@bigbash/common-types';
 
 // Load environment variables - activities may run in separate context
 // Look for .env in project root (3 levels up from workflows/src/activities)
-const projectRoot = resolve(__dirname, '../../../..');
+const projectRoot = resolve(__dirname, '../../..');
 const envPath = resolve(projectRoot, '.env');
 const envResult = config({ path: envPath });
 if (envResult.error) {
