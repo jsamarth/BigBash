@@ -6,6 +6,7 @@ import { getTemporalClient } from '@bigbash/infra';
 import { fetchVenuesWorkflow } from '@bigbash/workflows/src/workflows/fetchVenuesWorkflow';
 import { setupScheduledWorkflow } from './schedules';
 import type { FetchVenuesWorkflowInput } from '@bigbash/common-types';
+import venuesRouter from './routes/venues';
 
 // Load environment variables from .env file (look in project root, not package directory)
 const projectRoot = resolve(__dirname, '../../..');
@@ -39,32 +40,8 @@ app.get('/health', async (req, res) => {
   }
 });
 
-// Get all venues
-app.get('/api/venues', async (req, res) => {
-  try {
-    const db = getDatabase();
-    const venues = await db('venue').select('*').orderBy('name');
-    res.json(venues);
-  } catch (error) {
-    res.status(500).json({ error: String(error) });
-  }
-});
-
-// Get venue by ID
-app.get('/api/venues/:id', async (req, res) => {
-  try {
-    const db = getDatabase();
-    const venue = await db('venue').where('id', req.params.id).first();
-    
-    if (!venue) {
-      return res.status(404).json({ error: 'Venue not found' });
-    }
-    
-    res.json(venue);
-  } catch (error) {
-    res.status(500).json({ error: String(error) });
-  }
-});
+// Venue routes
+app.use('/api/venues', venuesRouter);
 
 // Trigger fetchVenues workflow
 app.post('/api/workflows/fetchVenues', async (req, res) => {
