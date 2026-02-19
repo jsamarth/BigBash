@@ -25,7 +25,7 @@ export async function setupScheduledWorkflow() {
         type: 'startWorkflow',
         workflowType: 'fetchVenuesWorkflow',
         taskQueue: 'venue-fetch-queue',
-        workflowId: 'fetchVenues-${timestamp}',
+        workflowId: 'fetchVenues',
         args: [
           {
             neighborhood: 'Williamsburg',
